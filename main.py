@@ -2,6 +2,8 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 from database import SessionLocal, engine
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import models, schemas, crud
 
 models.Base.metadata.create_all(bind=engine)
@@ -17,6 +19,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Servir archivos estáticos (frontend)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
 # Dependencia para obtener la base de datos
 
 def get_db():
@@ -27,8 +33,8 @@ def get_db():
         db.close()
 
 @app.get("/")
-def root():
-    return {"message": "Inventario FastAPI con Supabase activo"}
+def index():
+    return FileResponse("static/index.html")
 
 @app.post("/productos/", response_model=schemas.Producto)
 def crear_producto(producto: schemas.ProductoCreate, db: Session = Depends(get_db)):
