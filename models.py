@@ -8,3 +8,6 @@ class Producto(Base):
     nombre = Column(String, index=True)
     cantidad = Column(Integer)
     descripcion = Column(String)
+    marca = Column(String)
+    categoria = Column(String)
+    imagen_url = Column(String)

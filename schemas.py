@@ -4,6 +4,9 @@ class ProductoBase(BaseModel):
     nombre: str
     cantidad: int
     descripcion: str
+    marca: str
+    categoria: str
+    imagen_url: str | None = None
 
 class ProductoCreate(ProductoBase):
     pass

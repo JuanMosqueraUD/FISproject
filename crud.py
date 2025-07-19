@@ -19,3 +19,13 @@ def eliminar_producto(db: Session, producto_id: int):
         return {"mensaje": "Producto eliminado"}
     else:
         raise Exception("Producto no encontrado")
+
+def actualizar_producto(db: Session, producto_id: int, datos: schemas.ProductoCreate):
+    producto = db.query(models.Producto).filter(models.Producto.id == producto_id).first()
+    if not producto:
+        raise Exception("Producto no encontrado")
+    for campo, valor in datos.dict().items():
+        setattr(producto, campo, valor)
+    db.commit()
+    db.refresh(producto)
+    return producto
