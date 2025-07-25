@@ -1,71 +1,99 @@
-body {
-  background-color: #fbeedf;
-  font-family: 'Segoe UI', sans-serif;
-}
+/* Estilos para el panel de administración - Extraído del index.html funcionando */
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.header h1 {
-  font-size: 2.5rem;
-  color: #8b4a4a;
-}
-
-.admin-btn {
-  background-color: #8b4a4a;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 1rem;
-}
-
-.admin-btn:hover {
-  background-color: #a25b5b;
+/* Estilos básicos del index.html que funciona */
+.producto-card {
+  width: 300px;
 }
 
 .grid-productos {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
+  gap: 1rem;
 }
 
-.producto-card {
-  background-color: #fff;
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 250px;
-  text-align: center;
-  padding: 1rem;
-  transition: transform 0.2s ease;
-}
-
-.producto-card:hover {
-  transform: scale(1.02);
-}
-
-.producto-imagen {
-  width: 100%;
-  height: 250px;
+img.producto-imagen {
+  width: 100px;
+  height: 100px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  border-radius: 6px;
 }
 
-.producto-nombre {
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: #4e2c2c;
+/* Estilos adicionales para mejorar la interfaz */
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.producto-info {
-  font-size: 0.95rem;
-  color: #6c4c4c;
+.card {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+  border: none;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+h1 {
+  color: #343a40;
+  font-weight: 600;
+}
+
+.card h4 {
+  color: #495057;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+}
+
+.producto-card h5 {
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.producto-card p {
+  margin-bottom: 0.5rem;
+  color: #6c757d;
+}
+
+.producto-card small {
+  color: #868e96;
+}
+
+/* Estilos del formulario */
+#formProducto {
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  border: 1px solid #e9ecef;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .grid-productos {
+    justify-content: center;
+  }
+  
+  .producto-card {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  img.producto-imagen {
+    width: 80px;
+    height: 80px;
+  }
 }

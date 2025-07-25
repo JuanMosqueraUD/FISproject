@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar Sesión - Catálogo de Productos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #fbeedf;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .login-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 2rem;
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .login-header h1 {
+      color: #8b4a4a;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .login-header p {
+      color: #666;
+      margin: 0;
+    }
+    
+    .btn-login {
+      background-color: #8b4a4a;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      width: 100%;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .btn-login:hover {
+      background-color: #a25b5b;
+    }
+    
+    .btn-back {
+      background-color: #6c757d;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    
+    .btn-back:hover {
+      background-color: #5a6268;
+      color: white;
+      text-decoration: none;
+    }
+    
+    .form-control {
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    
+    .alert {
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    
+    .register-link {
+      text-align: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+    
+    .register-link a {
+      color: #8b4a4a;
+      text-decoration: none;
+    }
+    
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <a href="/" class="btn-back">← Volver al Catálogo</a>
+    
+    <div class="login-header">
+      <h1>Iniciar Sesión</h1>
+      <p>Accede al panel de administración</p>
+    </div>
+
+    <div id="error-message" class="alert alert-danger d-none"></div>
+    <div id="success-message" class="alert alert-success d-none"></div>
+
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="username" class="form-label">Usuario</label>
+        <input type="text" class="form-control" id="username" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" required>
+      </div>
+      
+      <button type="submit" class="btn btn-primary btn-login">Iniciar Sesión</button>
+    </form>
+
+    <div class="register-link">
+      <p>¿No tienes cuenta? <a href="#" onclick="showRegisterForm()">Registrarse</a></p>
+    </div>
+  </div>
+
+  <!-- Modal de registro -->
+  <div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Registrar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="registerForm">
+            <div class="mb-3">
+              <label for="reg-username" class="form-label">Usuario</label>
+              <input type="text" class="form-control" id="reg-username" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="reg-email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="reg-email" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="reg-password" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="reg-password" required>
+            </div>
+            
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="is-admin">
+              <label class="form-check-label" for="is-admin">
+                ¿Es administrador?
+              </label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="submitRegister()">Registrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/js/login.js"></script>
+</body>
+</html>

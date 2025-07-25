@@ -1,0 +1,205 @@
+@startuml
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+skinparam packageStyle rectangle
+
+title Sistema de Inventario de Maquillaje - Diagrama de Clases
+
+package "Models (SQLAlchemy)" {
+    class Base {
+        <<abstract>>
+    }
+    
+    class Producto {
+        - id: Integer
+        - nombre: String
+        - cantidad: Integer
+        - descripcion: String
+        - marca: String
+        - categoria: String
+        - imagen_url: String
+    }
+    
+    class Usuario {
+        - id: Integer
+        - username: String
+        - email: String
+        - password: String
+        - is_admin: Boolean
+    }
+    
+    Base <|-- Producto
+    Base <|-- Usuario
+}
+
+package "Schemas (Pydantic)" {
+    class ProductoBase {
+        + nombre: str
+        + cantidad: int
+        + descripcion: str
+        + marca: str
+        + categoria: str
+        + imagen_url: str
+    }
+    
+    class ProductoCreate {
+        <<inherit ProductoBase>>
+    }
+    
+    class ProductoSchema {
+        + id: int
+        <<inherit ProductoBase>>
+    }
+    
+    class UsuarioBase {
+        + username: str
+        + email: str
+        + is_admin: bool
+    }
+    
+    class UsuarioCreate {
+        + password: str
+        <<inherit UsuarioBase>>
+    }
+    
+    class UsuarioLogin {
+        + username: str
+        + password: str
+    }
+    
+    class UsuarioSchema {
+        + id: int
+        <<inherit UsuarioBase>>
+    }
+    
+    class Token {
+        + access_token: str
+        + token_type: str
+    }
+    
+    class LoginResponse {
+        + token: str
+        + user: UsuarioSchema
+    }
+    
+    ProductoBase <|-- ProductoCreate
+    ProductoBase <|-- ProductoSchema
+    UsuarioBase <|-- UsuarioCreate
+    UsuarioBase <|-- UsuarioSchema
+}
+
+package "Services" {
+    class PasswordManager {
+        + hash_password(password: str): str
+        + verify_password(password: str, hashed: str): bool
+    }
+    
+    class TokenManager {
+        - active_tokens: dict
+        + create_token(user_id: int, username: str, is_admin: bool): str
+        + validate_token(token: str): dict
+        + invalidate_token(token: str): void
+    }
+    
+    class AuthService {
+        - password_manager: PasswordManager
+        - token_manager: TokenManager
+        + authenticate_user(db, username: str, password: str): dict
+        + create_session(user_data: dict): str
+        + verify_admin_access(token: str): bool
+        + verify_user_access(token: str): dict
+        + logout(token: str): void
+    }
+    
+    class ProductoService {
+        - db: Session
+        + crear_producto(data: ProductoCreate): Producto
+        + obtener_productos(): List[Producto]
+        + obtener_producto_por_id(id: int): Producto
+        + actualizar_producto(id: int, data: ProductoCreate): Producto
+        + eliminar_producto(id: int): dict
+        + buscar_productos_por_categoria(categoria: str): List[Producto]
+        + buscar_productos_por_marca(marca: str): List[Producto]
+        + verificar_stock_bajo(limite: int): List[Producto]
+    }
+    
+    class UsuarioService {
+        - db: Session
+        - password_manager: PasswordManager
+        + crear_usuario(data: UsuarioCreate): Usuario
+        + obtener_usuarios(): List[Usuario]
+        + obtener_usuario_por_id(id: int): Usuario
+        + obtener_usuario_por_username(username: str): Usuario
+        + obtener_usuario_por_email(email: str): Usuario
+        + actualizar_usuario(id: int, data: UsuarioBase): Usuario
+        + eliminar_usuario(id: int): dict
+        + cambiar_password(id: int, password: str): Usuario
+        + obtener_administradores(): List[Usuario]
+        + obtener_usuarios_regulares(): List[Usuario]
+        + validar_credenciales(username: str, password: str): Usuario
+    }
+    
+    AuthService *-- PasswordManager : composition
+    AuthService *-- TokenManager : composition
+    UsuarioService *-- PasswordManager : composition
+}
+
+package "Database" {
+    class SessionLocal {
+        <<factory>>
+        + __call__(): Session
+    }
+    
+    class Engine {
+        <<singleton>>
+    }
+    
+    SessionLocal ..> Engine : uses
+}
+
+package "API Controllers" {
+    class FastAPIApp {
+        + get_root(): FileResponse
+        + get_admin(): FileResponse
+        + get_login(): FileResponse
+        + crear_producto(): Producto
+        + listar_productos(): List[Producto]
+        + actualizar_producto(): Producto
+        + eliminar_producto(): dict
+        + registrar_usuario(): Usuario
+        + login(): RedirectResponse
+        + logout(): RedirectResponse
+        + get_current_user(): dict
+        + listar_usuarios(): List[Usuario]
+        + buscar_productos_por_categoria(): List[Producto]
+        + buscar_productos_por_marca(): List[Producto]
+        + productos_stock_bajo(): List[Producto]
+        + listar_administradores(): List[Usuario]
+    }
+}
+
+' Relaciones de dependencia
+FastAPIApp ..> ProductoService : uses
+FastAPIApp ..> UsuarioService : uses
+FastAPIApp ..> AuthService : uses
+FastAPIApp ..> SessionLocal : uses
+
+ProductoService ..> Producto : manages
+ProductoService ..> ProductoCreate : uses
+ProductoService ..> SessionLocal : uses
+
+UsuarioService ..> Usuario : manages
+UsuarioService ..> UsuarioCreate : uses
+UsuarioService ..> UsuarioBase : uses
+UsuarioService ..> SessionLocal : uses
+
+AuthService ..> UsuarioService : delegates
+
+' Notas sobre patrones
+note right of AuthService : Facade Pattern\nSimplifica autenticación
+note right of ProductoService : Repository Pattern\nService Layer
+note right of UsuarioService : Repository Pattern\nService Layer
+note bottom of SessionLocal : Factory Pattern\nDependency Injection
+
+@enduml

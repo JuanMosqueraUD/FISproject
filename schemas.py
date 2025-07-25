@@ -16,3 +16,29 @@ class Producto(ProductoBase):
 
     class Config:
         from_attributes = True
+
+class UsuarioBase(BaseModel):
+    username: str
+    email: str
+    is_admin: bool = False
+
+class UsuarioCreate(UsuarioBase):
+    password: str
+
+class UsuarioLogin(BaseModel):
+    username: str
+    password: str
+
+class Usuario(UsuarioBase):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class LoginResponse(BaseModel):
+    token: str
+    user: Usuario

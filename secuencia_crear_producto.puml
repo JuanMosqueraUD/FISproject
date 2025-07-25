@@ -1,0 +1,34 @@
+@startuml
+!theme plain
+
+title Diagrama de Secuencia - Crear Producto (Solo Admin)
+
+actor "Admin" as Admin
+participant "Frontend" as Front
+participant "API Controller" as API
+participant "AuthService" as Auth
+participant "ProductoService" as ProdServ
+participant "Database" as DB
+
+Admin -> Front: Completa formulario producto
+Front -> API: POST /productos/ (con cookie token)
+
+API -> Auth: verify_admin_access(token)
+Auth -> Auth: token_manager.validate_token()
+Auth -> Auth: verificar is_admin == true
+Auth --> API: Acceso autorizado
+
+API -> ProdServ: new ProductoService(db)
+API -> ProdServ: crear_producto(producto_data)
+
+ProdServ -> ProdServ: validar datos
+ProdServ -> DB: INSERT INTO productos VALUES(...)
+DB --> ProdServ: Producto creado con ID
+
+ProdServ -> DB: COMMIT transaction
+ProdServ --> API: Producto creado
+
+API --> Front: JSON response (Producto)
+Front --> Admin: "Producto creado exitosamente"
+
+@enduml
