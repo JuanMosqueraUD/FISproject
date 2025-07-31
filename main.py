@@ -25,7 +25,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# Configurar archivos estáticos sin caché para desarrollo
+class NoCacheStaticFiles(StaticFiles):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+    def file_response(self, full_path, stat_result, scope, status_code=200):
+        response = super().file_response(full_path, stat_result, scope, status_code)
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+        return response
+
+app.mount("/static", NoCacheStaticFiles(directory="static"), name="static")
 
 @app.get("/")
 def cliente():
@@ -204,3 +216,5 @@ def listar_administradores(token: Optional[str] = Cookie(None), db: Session = De
     
     usuario_service = UsuarioService(db)
     return usuario_service.obtener_administradores()
+
+
