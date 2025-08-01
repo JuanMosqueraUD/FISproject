@@ -41,6 +41,29 @@ async function cargarProductos() {
       `;
       contenedor.appendChild(card);
     });
+    // Llenar datalist de marca y categoría
+    try {
+      const marcas = [...new Set(productos.map(p => (p.marca || '').trim()).filter(v => v))];
+      const categorias = [...new Set(productos.map(p => (p.categoria || '').trim()).filter(v => v))];
+      const datalistMarca = document.getElementById('datalist-marca');
+      const datalistCategoria = document.getElementById('datalist-categoria');
+      if (datalistMarca) {
+        datalistMarca.innerHTML = '';
+        marcas.forEach(m => {
+          const option = document.createElement('option');
+          option.value = m;
+          datalistMarca.appendChild(option);
+        });
+      }
+      if (datalistCategoria) {
+        datalistCategoria.innerHTML = '';
+        categorias.forEach(c => {
+          const option = document.createElement('option');
+          option.value = c;
+          datalistCategoria.appendChild(option);
+        });
+      }
+    } catch (e) {}
   } catch (error) {
     console.error('Error al cargar productos:', error);
   }
