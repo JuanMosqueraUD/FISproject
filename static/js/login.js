@@ -29,9 +29,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (response.ok) {
+                const data = await response.json();
                 showMessage('¡Login exitoso! Redirigiendo...', 'success');
-                // La redirección la maneja el servidor
-                window.location.href = response.url || '/admin';
+                
+                // Esperar un momento para que el usuario vea el mensaje y luego redirigir
+                setTimeout(() => {
+                    window.location.href = data.redirect_url;
+                }, 1000);
             } else {
                 const errorData = await response.json();
                 showMessage(errorData.detail || 'Error al iniciar sesión', 'error');
@@ -148,9 +152,15 @@ async function logout() {
         });
         
         if (response.ok) {
+            const data = await response.json();
+            window.location.href = data.redirect_url;
+        } else {
+            // En caso de error, redirigir de todas formas
             window.location.href = '/';
         }
     } catch (error) {
         console.error('Error cerrando sesión:', error);
+        // En caso de error, redirigir de todas formas
+        window.location.href = '/';
     }
 }

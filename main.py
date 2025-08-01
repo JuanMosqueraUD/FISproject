@@ -148,8 +148,13 @@ def login(credentials: schemas.UsuarioLogin, db: Session = Depends(get_db)):
     
     token = auth_service.create_session(user_data)
     
-    # Crear respuesta con cookie
-    response = RedirectResponse(url="/admin" if user_data["is_admin"] else "/", status_code=302)
+    # Crear respuesta JSON con cookie
+    from fastapi.responses import JSONResponse
+    response = JSONResponse(content={
+        "message": "Login exitoso",
+        "user": user_data,
+        "redirect_url": "/admin" if user_data["is_admin"] else "/"
+    })
     response.set_cookie(key="token", value=token, httponly=True, max_age=86400)  # 24 horas
     
     return response
@@ -160,7 +165,8 @@ def logout(token: Optional[str] = Cookie(None)):
     if token:
         auth_service.logout(token)
     
-    response = RedirectResponse(url="/", status_code=302)
+    from fastapi.responses import JSONResponse
+    response = JSONResponse(content={"message": "Logout exitoso", "redirect_url": "/"})
     response.delete_cookie(key="token")
     return response
 

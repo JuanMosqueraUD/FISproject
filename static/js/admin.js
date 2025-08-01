@@ -5,7 +5,16 @@ const api = "/productos";
 // Función para cargar productos existentes
 async function cargarProductos() {
   try {
-    const res = await fetch(api);
+    const res = await fetch(api, {
+      credentials: 'include' // Incluir cookies de autenticación
+    });
+    
+    if (res.status === 401 || res.status === 403) {
+      // Token expirado o sin permisos, redirigir al login
+      window.location.href = '/login';
+      return;
+    }
+    
     const productos = await res.json();
     const contenedor = document.getElementById("listaProductos");
     contenedor.innerHTML = "";
@@ -41,7 +50,10 @@ async function cargarProductos() {
 async function eliminar(id) {
   if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
     try {
-      await fetch(`${api}/${id}`, { method: "DELETE" });
+      await fetch(`${api}/${id}`, { 
+        method: "DELETE",
+        credentials: 'include' // Incluir cookies de autenticación
+      });
       cargarProductos();
     } catch (error) {
       console.error('Error al eliminar producto:', error);
@@ -62,7 +74,10 @@ function editar(prod) {
 }
 
 // Configurar el formulario cuando se carga la página
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
+  // Verificar autenticación al cargar la página
+  await verificarAutenticacion();
+  
   // Manejar envío del formulario
   document.getElementById("formProducto").addEventListener("submit", async e => {
     e.preventDefault();
@@ -102,7 +117,8 @@ document.addEventListener("DOMContentLoaded", function() {
       await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(producto)
+        body: JSON.stringify(producto),
+        credentials: 'include' // Incluir cookies de autenticación
       });
 
       // Limpiar formulario y recargar productos
@@ -123,3 +139,32 @@ document.addEventListener("DOMContentLoaded", function() {
   // Cargar productos al iniciar
   cargarProductos();
 });
+
+// Función para verificar autenticación
+async function verificarAutenticacion() {
+  try {
+    const response = await fetch('/auth/me', {
+      credentials: 'include'
+    });
+    
+    if (!response.ok) {
+      // Usuario no autenticado, redirigir al login
+      window.location.href = '/login';
+      return;
+    }
+    
+    const userData = await response.json();
+    if (!userData.is_admin) {
+      // Usuario no es admin, redirigir al catálogo
+      window.location.href = '/';
+      return;
+    }
+    
+    // Usuario autenticado y es admin, todo bien
+    console.log('Usuario autenticado:', userData.username);
+    
+  } catch (error) {
+    console.error('Error verificando autenticación:', error);
+    window.location.href = '/login';
+  }
+}
