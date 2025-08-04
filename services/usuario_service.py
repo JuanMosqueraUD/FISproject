@@ -44,12 +44,12 @@ class UsuarioService:
             # Hash de la contraseña
             hashed_password = self.password_manager.hash_password(data.password)
             
-            # Crear el usuario
+            # Forzar que ningún usuario pueda crearse como admin desde el registro
             usuario = models.Usuario(
                 username=data.username,
                 email=data.email,
                 password=hashed_password,
-                is_admin=data.is_admin
+                is_admin=False
             )
             
             self.db.add(usuario)
