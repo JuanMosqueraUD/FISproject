@@ -25,11 +25,30 @@
   </div>
 
 <div class="spacer"></div> <!-- para que no se haga bola el espacio :v -->
+
+  <!-- Filtros de productos -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <label for="filtroCategoria" class="form-label">Filtrar por Categoría</label>
+      <select id="filtroCategoria" class="form-select">
+        <option value="">Todas</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="filtroMarca" class="form-label">Filtrar por Marca</label>
+      <select id="filtroMarca" class="form-select">
+        <option value="">Todas</option>
+      </select>
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+      <button id="btnLimpiarFiltros" class="btn btn-secondary w-100">Limpiar Filtros</button>
+    </div>
+  </div>
+
   <form id="formProducto" class="card p-4 mb-5">
     <h4>Agregar / Editar Producto</h4>
     <input type="hidden" id="productoId">
     <input type="hidden" id="imagenActual">
-    
     <div class="mb-2"><input type="text" id="nombre" class="form-control" placeholder="Nombre" required></div>
     <div class="mb-2"><input type="number" id="cantidad" class="form-control" placeholder="Cantidad" required></div>
     <div class="mb-2">
