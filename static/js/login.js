@@ -6,6 +6,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const errorMessage = document.getElementById('error-message');
     const successMessage = document.getElementById('success-message');
 
+    // Evento para hacer scroll a la sección de información personal al hacer clic en un producto
+    document.querySelectorAll('.producto').forEach(producto => {
+        producto.addEventListener('click', function() {
+            const infoSection = document.getElementById('info-personal');
+            if (infoSection) {
+                infoSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
     // Manejar el formulario de login
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();

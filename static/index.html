@@ -32,8 +32,14 @@
     
     <div class="mb-2"><input type="text" id="nombre" class="form-control" placeholder="Nombre" required></div>
     <div class="mb-2"><input type="number" id="cantidad" class="form-control" placeholder="Cantidad" required></div>
-    <div class="mb-2"><input type="text" id="marca" class="form-control" placeholder="Marca" required></div>
-    <div class="mb-2"><input type="text" id="categoria" class="form-control" placeholder="Categoría" required></div>
+    <div class="mb-2">
+      <input type="text" id="marca" class="form-control" placeholder="Marca" list="datalist-marca" required>
+      <datalist id="datalist-marca"></datalist>
+    </div>
+    <div class="mb-2">
+      <input type="text" id="categoria" class="form-control" placeholder="Categoría" list="datalist-categoria" required>
+      <datalist id="datalist-categoria"></datalist>
+    </div>
     <div class="mb-2"><input type="text" id="descripcion" class="form-control" placeholder="Descripción"></div>
     <div class="mb-2"><input type="file" id="imagen" class="form-control"></div>
     <button type="submit" class="btn btn-success">Guardar Producto</button>

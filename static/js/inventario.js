@@ -20,7 +20,7 @@ function renderizarProductos(productos) {
       : "https://via.placeholder.com/250";
 
     const card = document.createElement("div");
-    card.className = "producto-card";
+    card.className = "producto-card producto"; // Agrega la clase 'producto'
     card.innerHTML = `
       <img src="${urlImagen}" onerror="this.onerror=null; this.src='https://via.placeholder.com/250'" class="producto-imagen">
       <div class="producto-nombre">${prod.nombre}</div>
@@ -30,6 +30,16 @@ function renderizarProductos(productos) {
       <div class="producto-info"><em>${prod.descripcion}</em></div>
     `;
     contenedor.appendChild(card);
+  });
+
+  // Asignar evento de scroll a cada producto después de renderizarlos
+  document.querySelectorAll('.producto').forEach(producto => {
+    producto.addEventListener('click', function() {
+      const infoSection = document.getElementById('info-personal');
+      if (infoSection) {
+        infoSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
   });
 }
 
@@ -73,5 +83,6 @@ async function inicializarCatalogo() {
     renderizarProductos(todosLosProductos);
   });
 }
+
 
 inicializarCatalogo();
