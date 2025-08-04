@@ -4,17 +4,27 @@
   <meta charset="UTF-8">
   <title>Inventario de Maquillaje</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+
+  <link rel="stylesheet" href="/static/css/inventario.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Belleza&display=swap" rel="stylesheet">
+  <link rel="icon" href="/static/Stetics/favicon.ico" type="image/x-icon">
+
+  
+  
   <link rel="stylesheet" href="/static/css/admin.css">
 </head>
 <body class="container py-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="text-center mb-0">Panel de Inventario</h1>
     <div>
-      <a href="/" class="btn btn-outline-primary me-2">Ver Catálogo</a>
-      <button class="btn btn-outline-danger" onclick="logout()">Cerrar Sesión</button>
+      <a href="/" class="btn btn-outline-primary me-2 btn_catalogo">Ver Catálogo</a>
+      <button class="btn btn-outline-danger btn_cerrar" onclick="logout()">Cerrar Sesión</button>
     </div>
   </div>
 
+<div class="spacer"></div> <!-- para que no se haga bola el espacio :v -->
   <form id="formProducto" class="card p-4 mb-5">
     <h4>Agregar / Editar Producto</h4>
     <input type="hidden" id="productoId">

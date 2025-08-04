@@ -1,7 +1,24 @@
 body {
-  background-color: #fbeedf;
-  font-family: 'Segoe UI', sans-serif;
+  background-color: #A381AB !important;
+  font-family: 'BodoniFLF-Bold';
   overflow-x: hidden; /* Evita scroll horizontal por el zoom */
+}
+
+body::before
+{
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/static/Stetics/iconoFondo.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  opacity: 0.5; 
+  z-index: -1;
+  pointer-events: none;
 }
 
 .header {
@@ -11,39 +28,130 @@ body {
   margin-bottom: 2rem;
   position: relative;
   z-index: 10;
+  font-family: 'BodoniFLF-Bold';
+  /**/
+  position: fixed; /* Fijo en la parte superior */
+  top: 0;
+  left: 0;
+  width: 100vw; /* 100% del ancho de la ventana */
+  height: 80px; /* Ajusta la altura según prefieras */
+  background-color: rgba(143, 109, 151, 0.9); /* Color semitransparente */
+  padding: 20px 40px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000; /* Asegura que esté encima del resto */
 }
 
-.header h1 {
+.header h1
+{
+  font-family: 'BodoniFLF-Bold';
   font-size: 2.5rem;
-  color: #8b4a4a;
+  color: #ffffff;
+}
+
+.logo
+{
+  
+  font-weight: bold;
+  font-size: 4rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  font-family: 'Bodoni MT', serif;
+  font-style: italic;
+}
+
+.spacer 
+{
+  height: 80px; /* debe coincidir exactamente con .header height */
 }
 
 .admin-btn {
-  background-color: #8b4a4a;
+  background-color: #B197B0;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   text-decoration: none;
   font-size: 1rem;
+  font-family: 'Belleza', sans-serif;
 }
 
 .admin-btn:hover {
-  background-color: #a25b5b;
+  background-color: #000000;
+  color: white;
+  font-family: 'Belleza', sans-serif;
 }
+
+label[for="filtroCategoria"]
+{
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: 'Belleza', sans-serif;
+}
+
+#filtroCategoria
+{
+  font-family: 'Belleza', sans-serif;
+  background-color: #B197B0;
+  border: none;
+  color: #FFFFFF
+}
+
+label[for="filtroMarca"]
+{
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: 'Belleza', sans-serif;
+}
+
+#filtroMarca
+{
+  color: #FFFFFF;
+  background-color: #B197B0;
+  border: none;
+  font-family: 'Belleza', sans-serif;
+}
+
+#btnLimpiarFiltros
+{
+  background-color: #B197B0;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Belleza', sans-serif;
+}
+
+#btnLimpiarFiltros:hover
+{
+  background-color: #000000;
+  color: white;
+  font-weight: bold;
+  font-family: 'Belleza', sans-serif;
+}
+
 
 .grid-productos {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
+  font-family: 'Belleza', sans-serif;
 }
 
 .producto-card {
-  background-color: #fff;
+  background-color: #B197B0;
   border: none;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(202, 200, 200, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   width: 250px;
   text-align: center;
   padding: 1rem;
@@ -51,14 +159,16 @@ body {
   position: relative;
   z-index: 1;
   cursor: pointer;
+  font-family: 'Belleza', sans-serif;
 }
 
 .producto-card:hover {
   transform: scale(1.05);
   z-index: 1000;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-  border: 3px solid #8b4a4a;
+  box-shadow: 10px -10px 10px 5px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(135deg, #fff 0%, #B197B0 100%);
+  border: 3px solid #B197B0;
+  font-family: 'Belleza', sans-serif;
 }
 
 
@@ -74,43 +184,48 @@ body {
 .producto-card:hover .producto-imagen {
   height: 300px;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 8px -8px 8px 0px rgba(0, 0, 0, 0.6);
 }
 
 .producto-nombre {
   font-weight: bold;
-  font-size: 1.2rem;
-  color: #4e2c2c;
+  font-size: 1.8rem;
+  color: #000000;
   transition: all 0.3s ease;
   margin-bottom: 0.5rem;
+  font-family: 'BodoniFLF-Bold';
 }
 
 .producto-card:hover .producto-nombre {
-  font-size: 1.6rem;
-  color: #8b4a4a;
+  font-size: 2.7rem;
+  color: #000000;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: 'BodoniFLF-Bold';
 }
 
 .producto-info {
   font-size: 0.95rem;
-  color: #6c4c4c;
+  color: #000000;
   transition: all 0.3s ease;
   margin-bottom: 0.3rem;
+  font-family: 'Belleza', sans-serif;
 }
 
 .producto-card:hover .producto-info {
   font-size: 1.1rem;
-  color: #4e2c2c;
+  color: #000000;
   font-weight: 500;
+  font-family: 'Belleza', sans-serif;
 }
 
 /* Estilo especial para la descripción en hover */
 .producto-card:hover .producto-info:last-child {
   font-style: italic;
-  color: #666;
+  color: #000000;
   font-size: 1rem;
   line-height: 1.4;
   margin-top: 0.5rem;
+  font-family: 'Belleza', sans-serif;
 }
 
 /* Indicador de interactividad */
@@ -122,7 +237,7 @@ body {
   font-size: 1.2rem;
   opacity: 0;
   transition: opacity 0.3s ease;
-  background-color: rgba(139, 74, 74, 0.9);
+  background-color: rgba(163, 129, 171, 0.9);
   color: white;
   border-radius: 50%;
   width: 30px;
@@ -130,11 +245,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Belleza', sans-serif;
 }
 
 .producto-card:hover::after {
   opacity: 1;
   transform: scale(1.2);
+  font-family: 'Belleza', sans-serif;
 }
 
 /* Animación suave para dispositivos móviles */
@@ -158,32 +275,49 @@ body {
 
 /* Sección de información personal */
 .info-personal {
-  background: linear-gradient(135deg, #8b4a4a 0%, #a25b5b 100%);
-  color: white;
+  background: linear-gradient(135deg, #B197B0 0%, #B197B0 100%);
+  color: black;
   padding: 3rem 2rem;
   margin-top: 4rem;
   text-align: center;
   border-radius: 20px 20px 0 0;
-  box-shadow: 0 -10px 30px rgba(139, 74, 74, 0.3);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+  font-family: 'BodoniFLF-Bold';
 }
 
 .info-personal h2 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-family: 'Belleza', sans-serif;
 }
 
-.info-personal .vendedora-nombre {
-  font-size: 1.8rem;
+.info-personal .vendedora-nombre
+{
+  font-weight: bold;
+  font-size: 3rem;
   font-weight: 300;
   margin-bottom: 0.5rem;
-  color: #fbeedf;
+  color: #000000;
+  font-family: 'Belleza', sans-serif;
 }
 
 .info-personal .contacto-info {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 2rem;
   opacity: 0.9;
+  font-family: 'Belleza', sans-serif;
+}
+
+.info-personal .vendedora-marca
+{
+  font-weight: bold;
+  font-size: 4rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  font-family: 'Bodoni MT', serif;
+  font-style: italic;
 }
 
 .whatsapp-btn {
@@ -201,6 +335,7 @@ body {
   box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
   border: none;
   cursor: pointer;
+  font-family: 'Belleza', sans-serif;
 }
 
 .whatsapp-btn:hover {
@@ -209,11 +344,13 @@ body {
   box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
   color: white;
   text-decoration: none;
+  font-family: 'Belleza', sans-serif;
 }
 
 .whatsapp-btn .whatsapp-icon {
   font-size: 1.8rem;
   animation: pulse 2s infinite;
+  font-family: 'Belleza', sans-serif;
 }
 
 @keyframes pulse {
@@ -241,4 +378,15 @@ body {
     padding: 0.8rem 1.5rem;
     font-size: 1.1rem;
   }
+}
+
+/*otra fuente que se usó y tocó descargar :v*/
+@font-face {
+    font-family: 'BodoniFLF-Bold';
+    src:url('BodoniFLF-Bold.ttf.woff') format('woff'),
+        url('BodoniFLF-Bold.ttf.svg#BodoniFLF-Bold') format('svg'),
+        url('BodoniFLF-Bold.ttf.eot'),
+        url('BodoniFLF-Bold.ttf.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
 }

@@ -1,6 +1,15 @@
 /* Estilos para el panel de administración - Extraído del index.html funcionando */
 
 /* Estilos básicos del index.html que funciona */
+
+
+/* Estilos adicionales para mejorar la interfaz */
+body {
+  background-color: #A381AB;
+  font-family: 'Belleza', sans-serif;
+}
+
+
 .producto-card {
   width: 300px;
 }
@@ -18,11 +27,6 @@ img.producto-imagen {
   border-radius: 6px;
 }
 
-/* Estilos adicionales para mejorar la interfaz */
-body {
-  background-color: #000000;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
 .card {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -35,12 +39,34 @@ body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-.btn {
+.btn_catalogo
+{
   transition: all 0.2s ease-in-out;
+  color: #000;
+  background-color: #B197B0;
+  border-color: #B197B0;
 }
 
-.btn:hover {
-  transform: translateY(-1px);
+.btn_catalogo:hover 
+{
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
+}
+
+.btn_cerrar
+{
+  transition: all 0.2s ease-in-out;
+  color: #000;
+  background-color: #B197B0;
+  border-color: #B197B0;
+}
+
+.btn_cerrar:hover 
+{
+  color: #000;
+  background-color: #EE1111;
+  border-color: #EE1111;
 }
 
 .form-control:focus {
@@ -49,7 +75,7 @@ body {
 }
 
 h1 {
-  color: #343a40;
+  color: #000;
   font-weight: 600;
 }
 
@@ -61,23 +87,23 @@ h1 {
 }
 
 .producto-card h5 {
-  color: #495057;
+  color: #000;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 .producto-card p {
   margin-bottom: 0.5rem;
-  color: #6c757d;
+  color: #000;
 }
 
 .producto-card small {
-  color: #868e96;
+  color: #000;
 }
 
 /* Estilos del formulario */
 #formProducto {
-  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  background: linear-gradient(135deg, #B197B0 0%, #B197B0 100%);
   border: 1px solid #e9ecef;
 }
 
